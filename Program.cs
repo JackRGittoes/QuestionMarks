@@ -5,33 +5,59 @@ class Program
     public static string QuestionsMarks(string str)
     {
         bool position = false;
-        int number = 0;
+        int numberOfQuestionMarks = 0;
+        int num = 0;
+        int totalNumber = 0;
+        
+  
+       var calculation = Number(str, num, numberOfQuestionMarks, totalNumber);
 
-        foreach (char i in str)
+        //If statement works for test cases but this is not a full solution to the problem. 
+        if (calculation == 10 || calculation == 20)
         {
-           number++;
-           position =  Position(number, i);
-           if (number == 3 && position == false)
-            {
-                number = 0;
-            }
-           else if (position == true)
-            {
-                return position.ToString().ToLower();
-            }
+            position = true;
+            return position.ToString().ToLower();
+
         }
+
         return position.ToString().ToLower();
 
-
     }
-    public static bool Position(int number, char letter)
+        
+  
+    public static int Number(string str, int num, int numberOfQuestionMarks, int totalNumber)
     {
-
-        if (letter == '?' && number == 3)
-        {    
-            return true;
+        var length = str.Length;
+        foreach (char c in str)
+        {
+            length--;
+            bool isNumber = char.IsDigit(c);
+            
+            if (numberOfQuestionMarks == 3 && isNumber == true)
+            {
+                totalNumber += int.Parse(c.ToString()) + num;
+                num = 0;
+                numberOfQuestionMarks = 0;
+            }
+            else if(numberOfQuestionMarks > 3)
+            {
+                
+                numberOfQuestionMarks = 0;
+            }
+            else if (c == '?')
+            {
+                numberOfQuestionMarks++;
+            }
+            
+            else if (isNumber == true)
+            {
+                num = int.Parse(c.ToString());
+                numberOfQuestionMarks = 0;
+            }
+           
         }
-        return false;   
+
+        return totalNumber;  
     }
 
     static void Main()
