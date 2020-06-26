@@ -30,22 +30,23 @@ class Program
         foreach (char c in str)
         {
             bool isNumber = char.IsDigit(c);
-
-            if (numberOfQuestionMarks < 3 && c == '?')
-            {
-                numberOfQuestionMarks++;
-            }
-            else if (numberOfQuestionMarks > 3)
-            {
-
-                numberOfQuestionMarks = 0;
-            }
-            else if (numberOfQuestionMarks == 3 && isNumber == true)
+            
+            if (numberOfQuestionMarks == 3 && isNumber == true)
             {
                 totalNumber += int.Parse(c.ToString()) + num;
                 num = 0;
                 numberOfQuestionMarks = 0;
-            } 
+            }
+            else if(numberOfQuestionMarks > 3)
+            {
+                
+                numberOfQuestionMarks = 0;
+            }
+            else if (c == '?')
+            {
+                numberOfQuestionMarks++;
+            }
+            
             else if (isNumber == true)
             {
                 num = int.Parse(c.ToString());
